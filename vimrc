@@ -1,28 +1,21 @@
 call plug#begin()
 
 "languages
-Plug 'fatih/vim-go', {'commit': '3eb57ac'}
 Plug 'pangloss/vim-javascript', {'commit': '871ab29'}
-Plug 'ElmCast/elm-vim', {'commit': '16a9a38'}
-Plug 'dag/vim2hs', {'commit': 'f2afd55'}
-Plug 'elixir-lang/vim-elixir', {'commit': '1cfd5ab'}
-Plug 'rust-lang/rust.vim', {'commit': 'e651851'}
 
 "config/templating/extensions
 Plug 'elzr/vim-json', {'commit': 'f5e3181'}
 Plug 'mxw/vim-jsx', {'commit': 'd0ad98c'}
-Plug 'hashivim/vim-terraform', {'commit': 'bfc6ef2'}
-Plug 'digitaltoad/vim-pug', {'commit': 'eb8c6b2'}
 Plug 'tpope/vim-markdown', {'commit': 'dcdab0c'}
-Plug 'wavded/vim-stylus', {'commit': '9ab38f0'}
 
 "misc
 Plug 'morhetz/gruvbox', {'commit': '127c9d1'}  "colorscheme
-Plug 'neomake/neomake', {'commit': '75f9f3b'}  "linting
-Plug 'tomtom/tcomment_vim', {'commit': 'c982b13'}  "commenting blocks
+"Plug 'neomake/neomake', {'commit': '75f9f3b'}  "linting
+Plug 'tomtom/tcomment_vim' "commenting blocks
 Plug 'tpope/vim-surround', {'commit': '1a73f60'}  "change surrounding
 Plug 'vim-airline/vim-airline', {'commit': '7b9b68f'}  "status bar
-"Plug 'sbdchd/neoformat', {'commit': '2111755'}  "auto formatting
+Plug 'https://github.com/wesQ3/vim-windowswap' "window swap Leader + direction
+Plug 'sbdchd/neoformat' "auto formatting
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' } "prettier for Vim
 call plug#end()
 
@@ -142,8 +135,13 @@ if executable('flow')
 endif
 
 "neoformat: format javascript on save
-"autocmd BufWritePre *.js Neoformat
+autocmd BufWritePre *.js Neoformat prettier
 "uncomment for neoformat. Needs love for eslint reading?
+
+"format js on save https://hackernoon.com/5-vim-plugins-i-cant-live-without-for-javascript-development-f7e98f98e8d5
+"autocmd FileType javascript set formatprg=prettier\ --stdin
+"autocmd BufWritePre *.js exe normal! 'gggqG\<C-o>\<C-o>' change singlequote to
+"                                                         doublequote if using
 
 "netrw, but with NERDtree feels?
 let g:netrw_banner = 0
