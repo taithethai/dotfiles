@@ -2,8 +2,10 @@ call plug#begin()
 
 "languages
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 
 "config/templating/extensions
+Plug 'Quramy/tsuquyomi' "typescript IDE
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'hashivim/vim-terraform'
@@ -26,6 +28,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin' "git for NERDtree
 Plug 'wesQ3/vim-windowswap' "keybind is sww at first buffer, and sww to swap buffer
 Plug 'ap/vim-css-color' "color preview
 Plug 'mbbill/undotree' "undo tree :UndotreeToggle
+Plug 'janko-m/vim-test' "test inside vim
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} "vimproc dependency of tsuquyomi
+Plug 'chrisbra/NrrwRgn' "<leader>nr for narrow highlighted content
+Plug 'jremmen/vim-ripgrep' " :Rg for ripgrep in vim
 call plug#end()
 
 "enable filetypes (already done by vim-plug, but in case that changes)
@@ -100,13 +106,15 @@ let mapleader='s'
 nmap <Leader>l :vsplit<CR><C-l>
 nmap <Leader>j :split<CR>
 nmap <Leader>r :redraw!<CR>
-"nmap <Leader>s :set spell! spell?<CR>
+nmap <Leader>s :set spell! spell?<CR>
 nmap <Leader>h :set hls! hls?<CR>
 nmap <Leader>2 :set ts=2 sts=2 sw=2 et<CR>
 nmap <Leader>4 :set ts=4 sts=4 sw=4 et<CR>
 "nmap <Leader>p :set invpaste paste?<CR>
-nmap <Leader>v :source %<CR>
+nmap <Leader>v :source ~/.vimrc<CR>
 nmap <C-p> :FZF<CR>
+nmap <Leader>t :TestFile<CR>
+nmap <Leader>h :UndoTreeToggle<CR>
 
 "line movement
 nmap <M-j> :m+<CR>==
@@ -125,9 +133,13 @@ let g:jsx_ext_required = 0  "vim-jsx: make .jsx extension not requried
 
  let g:ale_linters = {
  \  'javascript': ['eslint'],
+ \  'typescript': ['eslint'],
  \}
+ 
+ " \  'typescript': ['tsserver'],
 let g:ale_fixers = {
 \  'javascript': ['eslint'],
+ \  'typescript': ['eslint'],
 \}
 let g:ale_fix_on_save = 1
 
@@ -147,5 +159,20 @@ endfunction
 autocmd vimenter * NERDTree
 "close vim if NERDTree is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"always show hidden files
+let NERDTreeShowHidden=1
 
+"vim-test
+let g:test#javascript#mocha#file_pattern = '.*\.spec\.js' "spec file recognition
+let g:test#strategy = 'neovim' "use :terminal for testing
+let g:test#javascript#mocha#options = '--require esm' "require esm for javascript testing
 
+"tsuquyomi bindings
+nmap <Leader>d :TsuquyomiSplitDefinition<CR>
+let g:tsuquyomi_completion_detail = 1 "typescript extra completion details
+let g:tsuquyomi_javascript_support = 1
+
+"fold the functions!
+set foldmethod=indent
+set foldlevel=1
+set foldclose=all

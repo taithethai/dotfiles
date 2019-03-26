@@ -13,7 +13,26 @@ export PATH=$PATH:$HOME/.cargo/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+# autoload -U add-zsh-hook
+# load-nvmrc() {
+#   local node_version="$(nvm version)"
+#   local nvmrc_path="$(nvm_find_nvmrc)"
+# 
+#   if [ -n "$nvmrc_path" ]; then
+#     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+# 
+#     if [ "$nvmrc_node_version" = "N/A" ]; then
+#       nvm install
+#     elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#       nvm use
+#     fi
+#   elif [ "$node_version" != "$(nvm version default)" ]; then
+#     echo "Reverting to nvm default version"
+#     nvm use default
+#   fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 export GOPATH=~/Active/go
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib:/usr/local/opt/opencv3/lib:/usr/local/lib
@@ -85,6 +104,7 @@ alias gpo='git push -u origin $(current_branch)'
 alias gpt='git push -u taithethai $(current_branch)'
 alias grs='git reset --soft'
 alias grh='git reset --hard'
+alias grh1='git reset HEAD~1'
 alias grho='git reset --hard origin/$(current_branch)'
 alias grht='git reset --hard taithethai/$(current_branch)'
 alias gc='git checkout'
@@ -103,6 +123,7 @@ alias grm='git remote rm'
 alias gcl='git changelog'
 alias gct='git commit -v'
 alias gcm='git commit -m'
+alias gssh='git remote set-url origin'
 
 # hub aliases
 alias hc='hub create'
@@ -175,3 +196,11 @@ set rtp+=~/.fzf
 # thefuck commandcorrector
 eval $(thefuck --alias)
 
+# edit source anywhere
+alias vs='v ~/dotfiles'
+# tty nuisance
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# npm run shortened
+alias nr='npm run'
