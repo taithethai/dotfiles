@@ -4,6 +4,11 @@ call plug#begin()
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 
+"scheme specific (remove after tycs)
+Plug 'taithethai/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+
 "config/templating/extensions
 Plug 'Quramy/tsuquyomi' "typescript IDE
 Plug 'elzr/vim-json'
@@ -13,8 +18,8 @@ Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-markdown'
 Plug 'wavded/vim-stylus'
 Plug 'slim-template/vim-slim'
-
 "misc
+"jceb/vim-orgmode
 Plug 'morhetz/gruvbox' "colorscheme
 Plug 'w0rp/ale' "linting
 Plug 'tomtom/tcomment_vim' "commenting blocks
@@ -90,6 +95,8 @@ colorscheme gruvbox
 highlight LineNr ctermfg=black
 highlight Pmenu ctermbg=grey ctermfg=black
 highlight PmenuSel ctermbg=red ctermfg=white
+highlight Comment cterm=italic gui=italic
+
 
 "completion
 imap <C-j> <C-n>
@@ -160,7 +167,9 @@ autocmd vimenter * NERDTree
 "close vim if NERDTree is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "always show hidden files
-let NERDTreeShowHidden=1
+let g:NERDTreeShowHidden=1
+":Ntl runs :NERDTree ~/Lambdaschool/
+" :command! Ntl NERDTree ~/Lambdaschool
 
 "vim-test
 let g:test#javascript#mocha#file_pattern = '.*\.spec\.js' "spec file recognition
@@ -172,7 +181,5 @@ nmap <Leader>d :TsuquyomiSplitDefinition<CR>
 let g:tsuquyomi_completion_detail = 1 "typescript extra completion details
 let g:tsuquyomi_javascript_support = 1
 
-"fold the functions!
-set foldmethod=indent
-set foldlevel=1
-set foldclose=all
+"Map escape to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
