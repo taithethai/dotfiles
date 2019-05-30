@@ -8,6 +8,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'taithethai/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle<Paste>
 
 "config/templating/extensions
 Plug 'Quramy/tsuquyomi' "typescript IDE
@@ -180,6 +182,8 @@ let g:test#javascript#mocha#options = '--require esm' "require esm for javascrip
 nmap <Leader>d :TsuquyomiSplitDefinition<CR>
 let g:tsuquyomi_completion_detail = 1 "typescript extra completion details
 let g:tsuquyomi_javascript_support = 1
+let g:tsuquyomi_use_local_typescript = 0
+let g:tsuquyomi_use_dev_node_module = 0
 
 "Map escape to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
